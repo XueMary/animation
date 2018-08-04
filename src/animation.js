@@ -2,6 +2,7 @@
 
 
 var loadImage = require('./loadImage')
+var Timeline = require('./timeline')
 
 
 var TIMING = 1000 / 60 // 一秒60帧的执行速度和浏览器的显示速度相同
