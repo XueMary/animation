@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #rabbit{
+      width: 600px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="rabbit"></div>
+  <script src="../build/animation.js"></script>
+  <script>
+    var positions = ['120 0', '240 0', '360 0']
+    var rabbitEle = document.querySelector('#rabbit')
+    var rabbit = animation(['./timg.jpg'])
+    .changePosition(rabbitEle, positions, './timg.jpg')
+    .repeat(10)
+
+    rabbit.start(100)
+  </script>
+</body>
+</html>

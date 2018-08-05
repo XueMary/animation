@@ -22,6 +22,7 @@ function Animation(imgList) {
   this._index = 0
   // 执行任务前要先加载好img后才能执行下一个任，避免动画执行中img还没加载出来
   this._loadImage(imgList)
+  this.timeline = new Timeline()
 }
 
 /**
@@ -31,6 +32,27 @@ function Animation(imgList) {
  * @param imageUrl 背景图片url
  */
 Animation.prototype.changePosition = function (ele, positions, imageUrl) {
+  var len = positions.length
+  var taskFn
+  var type
+  var _this = this
+  if (len) {
+    taskFn = function (next, time) {
+      if (imageUrl) {
+        ele.style.backgroundImage = 'url(' + imageUrl + ')'
+      }
+      var index = Math.min(time / _this.interval | 0, len)
+      var position = positions[index - 1].split(' ')
+
+      ele.style.backgroundPosition = position[0] + 'px ' + position[1] + 'px'
+
+      if (index === len) {
+        next()
+      }
+    }
+    type = 1
+    this._add(taskFn, type)
+  }
   return this
 }
 
@@ -40,6 +62,23 @@ Animation.prototype.changePosition = function (ele, positions, imageUrl) {
  * @param imglist 图片url数组
  */
 Animation.prototype.changeUrl = function (ele, imglist) {
+  var len = imglist.length
+  var taskFn
+  var type
+  var _this = this
+  if (len) {
+    taskFn = function (next, time) {
+      ele.style.backgroundImage = 'url(' + imageUrl + ')'
+      var imageUrl = imglist[index - 1].split(' ')
+      var index = Math.min(time / _this.interval | 0, len)
+
+      if (index === len) {
+        next()
+      }
+    }
+    type = 1
+    this._add(taskFn, type)
+  }
   return this
 }
 
@@ -106,10 +145,10 @@ Animation.prototype.then = function (calback) {
  */
 Animation.prototype.start = function (interval) {
   // 本身已经是执行状态或者任务队列里没有任务时不进行操作
-  if (this.state === 1 || !this.taskQuery.length) {
+  if (this.state === 1 || !this._taskQuery.length) {
     return this
   }
-  
+
   this.interval = interval || TIMING
   this.state = 1
   this._runTask()
@@ -120,6 +159,11 @@ Animation.prototype.start = function (interval) {
  * 动画暂停
  */
 Animation.prototype.pause = function () {
+  if (this._state !== 1) {
+    return this
+  }
+  this._state = 2
+  this.timeline.stop()
   return this
 }
 
@@ -127,6 +171,11 @@ Animation.prototype.pause = function () {
  * 动画从上一次暂停处重新执行
  */
 Animation.prototype.restart = function () {
+  if (this._state !== 2) {
+    return this
+  }
+  this._state = 1
+  this.timeline.restart()
   return this
 }
 
@@ -197,7 +246,19 @@ Animation.prototype._runTask = function () {
  * @param task 任务对象 {taskFn, type}
  */
 Animation.prototype._asyncTask = function (task) {
+  var _this = this
 
+  function enterframe(time) {
+    var taskFn = task.taskFn
+    function next() {
+      _this.timeline.stop()
+      _this._next()
+    }
+    taskFn(next, time)
+  }
+
+  this.timeline.onenterframe = enterframe
+  this.timeline.start(this.interval)
 }
 
 /**
@@ -218,5 +279,14 @@ Animation.prototype._syncTask = function (task) {
  * 释放资源
  */
 Animation.prototype._dispose = function () {
+  if (this.state !== STATE_INITTAL) {
+    this.state = STATE_INITTAL
+    this.taskQuery = null
+    this.timeline.stop()
+    this.timeline = null
+  }
+}
 
+module.exports = function (imglist) {
+  return new Animation(imglist)
 }

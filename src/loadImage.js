@@ -11,7 +11,7 @@ function loadImage(imglist, next, timeout) {
 
   for (var key in imglist) {
     // 过滤property上的属性
-    if (!images.hasOwnProperty(key)) {
+    if (!imglist.hasOwnProperty(key)) {
       continue
     }
 
@@ -35,10 +35,10 @@ function loadImage(imglist, next, timeout) {
   // 加载图片
   function doimg(item) {
     var img = item.image
-    item = item.src
+    img.src = item.src
     // 加载是否超时
     item.isTimeout = false
-
+    
     img.onload = function () {
       item.status = 'loaded'
       done()
@@ -76,5 +76,7 @@ function loadImage(imglist, next, timeout) {
     }
   }
 }
+
+module.exports = loadImage
 
 
