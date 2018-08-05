@@ -9,17 +9,16 @@ animation
 
 
 示例：
-var positions = [
+    var positions = [
      '120 0', '240 0', '360 0'
     ]
 
-
-var imglist = ['./horse.jpg']
+    var imglist = ['./horse.jpg']
     var rabbitEle = document.querySelector('#rabbit')
+    
     var rabbit = animation(imglist)
     .changePosition(rabbitEle, positions, './horse.jpg')
     .repeat(4)
-
     rabbit.start(time * 10)
     setTimeout(() => {
       rabbit.pause()
