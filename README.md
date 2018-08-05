@@ -9,13 +9,14 @@ animation
 
 
 示例：
+
     var positions = [
      '120 0', '240 0', '360 0'
     ]
 
     var imglist = ['./horse.jpg']
     var rabbitEle = document.querySelector('#rabbit')
-    
+
     var rabbit = animation(imglist)
     .changePosition(rabbitEle, positions, './horse.jpg')
     .repeat(4)
