@@ -145,12 +145,12 @@ Animation.prototype.then = function (calback) {
  */
 Animation.prototype.start = function (interval) {
   // 本身已经是执行状态或者任务队列里没有任务时不进行操作
-  if (this.state === 1 || !this._taskQuery.length) {
+  if (this._state === 1 || !this._taskQuery.length) {
     return this
   }
 
   this.interval = interval || TIMING
-  this.state = 1
+  this._state = 1
   this._runTask()
   return this
 }
@@ -159,6 +159,7 @@ Animation.prototype.start = function (interval) {
  * 动画暂停
  */
 Animation.prototype.pause = function () {
+  console.log(this._state)
   if (this._state !== 1) {
     return this
   }
@@ -222,7 +223,7 @@ Animation.prototype._next = function () {
  */
 Animation.prototype._runTask = function () {
   // 当任务队列没有任务时或者当前不是处于运动状态时就不做任何操作
-  if (!this._taskQuery || this.state !== 1) {
+  if (!this._taskQuery || this._state !== 1) {
     return
   }
 
@@ -279,8 +280,8 @@ Animation.prototype._syncTask = function (task) {
  * 释放资源
  */
 Animation.prototype._dispose = function () {
-  if (this.state !== STATE_INITTAL) {
-    this.state = STATE_INITTAL
+  if (this._state !== 0) {
+    this._state = 0
     this.taskQuery = null
     this.timeline.stop()
     this.timeline = null

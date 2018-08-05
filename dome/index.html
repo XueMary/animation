@@ -7,8 +7,8 @@
   <title>Document</title>
   <style>
     #rabbit{
-      width: 600px;
-      height: 100px;
+      width: 179.75px;
+      height: 155.5px;
     }
   </style>
 </head>
@@ -16,13 +16,26 @@
   <div id="rabbit"></div>
   <script src="../build/animation.js"></script>
   <script>
-    var positions = ['120 0', '240 0', '360 0']
+    var x = 719 / 4
+    var y = 311 / 2
+    var time = 1000 / 60
+    var positions = [
+      x + ' 0', 2*x + ' 0', 3*x + ' 0', 4*x + ' 0',
+      x + ' ' + y, 2*x + ' ' + y, 3*x + ' ' + y, 4*x + ' ' + y
+    ]
+    var imglist = ['./horse.jpg']
     var rabbitEle = document.querySelector('#rabbit')
-    var rabbit = animation(['./timg.jpg'])
-    .changePosition(rabbitEle, positions, './timg.jpg')
-    .repeat(10)
+    var rabbit = animation(imglist)
+    .changePosition(rabbitEle, positions, './horse.jpg')
+    .repeat(4)
 
-    rabbit.start(100)
+    rabbit.start(time * 10)
+    setTimeout(() => {
+      rabbit.pause()
+    }, 2000);
+    setTimeout(() => {
+      rabbit.restart()
+    }, 3000);
   </script>
 </body>
 </html>

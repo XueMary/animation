@@ -62,8 +62,8 @@ Timeline.prototype.stop = function () {
   if (this.startTime) {
     // dur 总执行的时长
     this.dur = +new Date() - this.startTime
-    cancelAnimationFrame(this.animationHandle)
   }
+  cancelAnimationFrame(this.animationHandle)
 }
 /**
  * 重新执行
