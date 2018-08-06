@@ -40,6 +40,8 @@ function loadImage(imglist, next, timeout) {
     item.isTimeout = false
     
     img.onload = function () {
+      // 非常重要，如果不打印img，切换图片url来执行的帧动画会请求新的图片资源
+      console.log(img)
       item.status = 'loaded'
       done()
     }
