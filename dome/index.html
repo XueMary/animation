@@ -10,10 +10,15 @@
       width: 179.75px;
       height: 155.5px;
     }
+    #img-box{
+      width: 198px;
+      height: 298px;
+    }
   </style>
 </head>
 <body>
   <div id="rabbit"></div>
+  <div id="img-box"></div>
   <script src="../build/animation.js"></script>
   <script>
     var x = 719 / 4
@@ -23,19 +28,25 @@
       x + ' 0', 2*x + ' 0', 3*x + ' 0', 4*x + ' 0',
       x + ' ' + y, 2*x + ' ' + y, 3*x + ' ' + y, 4*x + ' ' + y
     ]
-    var imglist = ['./horse.jpg']
+    var imglist = ['./horse.jpg', './1.png', './2.png', './3.png', './4.png', './5.png', './6.png', './7.png', './8.png']
     var rabbitEle = document.querySelector('#rabbit')
-    var rabbit = animation(imglist)
+    var imgBoxEle = document.querySelector('#img-box')
+    var rabbit = animation(['./horse.jpg'])
     .changePosition(rabbitEle, positions, './horse.jpg')
-    .repeat(4)
+    .repeat(5)
+
+    var imgBox = animation(['./horse.jpg', './1.png', './2.png', './3.png', './4.png', './5.png', './6.png', './7.png', './8.png'])
+    .changeUrl(imgBoxEle, imglist.splice(1))
+    .repeat(6)
 
     rabbit.start(time * 10)
-    setTimeout(() => {
-      rabbit.pause()
-    }, 2000);
-    setTimeout(() => {
-      rabbit.restart()
-    }, 3000);
+    imgBox.start(time * 10)
+    // setTimeout(() => {
+    //   rabbit.pause()
+    // }, 2000);
+    // setTimeout(() => {
+    //   rabbit.restart()
+    // }, 3000);
   </script>
 </body>
 </html>

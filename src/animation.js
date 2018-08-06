@@ -68,11 +68,12 @@ Animation.prototype.changeUrl = function (ele, imglist) {
   var _this = this
   if (len) {
     taskFn = function (next, time) {
-      ele.style.backgroundImage = 'url(' + imageUrl + ')'
-      var imageUrl = imglist[index - 1].split(' ')
-      var index = Math.min(time / _this.interval | 0, len)
 
-      if (index === len) {
+      var index = Math.min(time / _this.interval | 0, len - 1)
+      var imageUrl = imglist[index]
+      ele.style.backgroundImage = 'url(' + imageUrl + ')'
+
+      if (index === len - 1) {
         next()
       }
     }
@@ -159,7 +160,6 @@ Animation.prototype.start = function (interval) {
  * 动画暂停
  */
 Animation.prototype.pause = function () {
-  console.log(this._state)
   if (this._state !== 1) {
     return this
   }

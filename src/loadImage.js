@@ -1,4 +1,4 @@
-
+'use strict'
 /**
  * 图片预加载
  * @param imglist 需要加载的图片数组
