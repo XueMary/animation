@@ -7,7 +7,7 @@ animation
 有了上述需求，我觉得写一个通用的animation库还是很有必要的，这样用户就每必要为每一组动画写逻辑了，从繁琐的劳动中解放，不正是每个coder所期望的么：）
 
 
-  npm i js-frame-animation
+    npm i js-frame-animation
 
 示例：
 
