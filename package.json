@@ -1,0 +1,23 @@
+{
+  "name": "js-frame-animation",
+  "version": "1.0.0",
+  "description": "A frame animation library",
+  "main": "./src/animation.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XueMary/animation.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "animation"
+  ],
+  "author": "薛纪洪",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XueMary/animation/issues"
+  },
+  "homepage": "https://github.com/XueMary/animation#readme"
+}
