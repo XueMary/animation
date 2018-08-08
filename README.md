@@ -11,6 +11,8 @@ animation
 
 示例：
 
+    import animation from 'js-frame-animation'
+    
     var positions = [
      '120 0', '240 0', '360 0'
     ]
